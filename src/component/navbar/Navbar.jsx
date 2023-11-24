@@ -64,7 +64,7 @@ const Navbar = () => {
             //  </>
     return (
         <div>
-            <div className="navbar bg-[#bef7ef] rounded-lg p-0 md:p-2">
+            <div className="navbar bg-[#e3d5ca] rounded-lg p-0 md:p-2">
                 <div className="navbar-start">
                     <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -91,7 +91,7 @@ const Navbar = () => {
                      <div>
                      
                     { user?
-                                 <div className="flex">
+                                 <div className="flex justify-items-center">
                                  
                                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                  <div className="w-10 rounded-full">
@@ -100,7 +100,7 @@ const Navbar = () => {
                                   </label>
                                  <a onClick={handleSignOut} className="btn  w-16 text-xs ">  SignOut</a></div>
                                  :
-                                 <Link to={"/login"}><a className="btn ">Login</a></Link>  
+                                 <Link to={"/login"}><a className="w-20 p-2   rounded-md bg-white">Login</a></Link>  
                      } 
                      </div>
 

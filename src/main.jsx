@@ -19,6 +19,7 @@ import {
 //import PrivateRoute from './component/PrivateRoute.jsx'
 import AuthProvider from './firebase/AuthProvider.jsx'
 import Root from './component/Root.jsx'
+import Dashboard from './component/Dashboard/cart/Dashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
 
     ]
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children : [
+      
+    ]
+  }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
