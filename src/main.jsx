@@ -20,6 +20,8 @@ import {
 import AuthProvider from './firebase/AuthProvider.jsx'
 import Root from './component/Root.jsx'
 import Dashboard from './component/Dashboard/cart/Dashboard.jsx'
+import Login from './component/login/Login.jsx'
+import Registration from './component/login/Registration.jsx'
 
 const router = createBrowserRouter([
   {
@@ -34,11 +36,11 @@ const router = createBrowserRouter([
     
       {
         path: "/login",
-        //element: <Login></Login>,
+        element: <Login></Login>,
       },
       {
         path: "/registration",
-       // element: <Registration></Registration>,
+        element: <Registration></Registration>,
       },
 
     ]
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
     children : [
-      
+
     ]
   }
 
