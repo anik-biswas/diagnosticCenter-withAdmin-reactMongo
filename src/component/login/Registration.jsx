@@ -43,12 +43,26 @@ const Registration = () => {
     e.preventDefault();
 
     const form = new FormData(e.currentTarget);
+    const selectBlood = document.getElementById("bloodSelect");
+    const selectDistrict = document.getElementById("districtSelect");
+    const selectUpazila = document.getElementById("upazilaSelect");
     const name = form.get('name');
     const email = form.get('email');
+    const blood = selectBlood.value;
+    const district = selectDistrict.value;
+    const upazila = selectUpazila.value;
     const password = form.get('password');
-    const bloodGroup = form.get('bloodGroup');
+    const confirmPassword = form.get('confirmPassword');
     const imageFile = form.get('image');
-  
+
+    if(password===confirmPassword)
+    {
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) {
+         setError("Minimum 6 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+        
+     }
+     else {
+        setError("");
     // Host image on imgbb
     const imgbbFormData = new FormData();
     imgbbFormData.append('image', imageFile);
@@ -61,51 +75,36 @@ const Registration = () => {
     const imgbbData = await imgbbRes.json();
     const imageUrl = imgbbData.data.url;
   
-    // Continue with your registration logic, including imageUrl in the data
-    const user = {
-      name,
-      email,
-      password,
-      bloodGroup,
-      image: imageUrl, // Include the hosted image URL
-    };
-    console.log(user)
-    //   if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) {
-    //      setError("Minimum 6 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
-        
-    //  }
-    //  else{
-    //     setError("");
     //      if(email,name,image)
     //      {
             
-    //         signUp(email,password)
-    //         .then(result=>{
-    //             console.log(result.user);
+            signUp(email,password)
+            .then(result=>{
+                console.log(result.user);
                 
-    //             const createdAt = result.user?.metadata?.creationTime;
-    //             const user = { email,name,image, createdAt: createdAt };
+                const createdAt = result.user?.metadata?.creationTime;
+                const user = { name,email,password, blood, district, upazila,image:imageUrl,status: "active",createdAt: createdAt};
                
-    //             fetch('https://job-server-topaz.vercel.app/user', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'content-type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify(user)
-    //             })
-    //                 .then(res => res.json())
-    //                 .then(data => {
-    //                     if(data.insertedId){
-    //                       //  toast.success('Register & Database saved successful!'); 
-    //                     }
-    //                     console.log(data)
-    //                 })
+                fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                          //  toast.success('Register & Database saved successful!'); 
+                        }
+                        console.log(data)
+                    })
 
     //             navigate(location?.state ? location.state : '/',{state: {name}});
     //             // navigate('/', { state: { name } });
     //             toast.success('Register successful!'); 
     //             //console.log(name,email,image,password);
-    //         })
+            })
     //         .catch(error=>{
     //             console.error(error);
     //             toast.error('Registration failed. Please check your credentials.');
@@ -113,7 +112,14 @@ const Registration = () => {
     //     }
        
     //  }
-   }
+      }
+    }
+    else
+    {
+        setError("password does not match")
+    }
+
+}
     return (
         <div>
             <div className="hero min-h-screen bg-[#e3f9f6]">
@@ -165,7 +171,7 @@ const Registration = () => {
               <label className="input-group">
                 <select
                   className="select input input-bordered w-full"
-                  id="bloodGroupSelect"
+                  id="bloodSelect"
                   required
                 >
                      <option value="" disabled selected>
@@ -196,30 +202,48 @@ const Registration = () => {
           <div className="md:flex mb-4 lg:mb-8">
             <div className="form-control md:w-full lg:w-1/2">
               <label className="label">
-                <span className="label-text">Salary Range</span>
+                <span className="label-text">District</span>
               </label>
               <label className="input-group">
-                <input
-                  type="text"
-                  name="salary"
-                  placeholder="Salary Range"
-                  className="input input-bordered w-full"
+              <select
+                  className="select input input-bordered w-full max-w-sm"
+                  id="districtSelect"
                   required
-                />
+                >
+                     <option value="" disabled selected>
+                        Select District
+                      </option>
+                      {districts
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map((district) => (
+                          <option key={district._id} value={district.name}>
+                            {district.name}
+                          </option>
+                        ))}
+                </select>
               </label>
             </div>
-            <div className="form-control md:w-full lg:w-1/2 ml-0 lg:ml-4 mt-4 lg:mt-0">
+            <div className="form-control md:w-full lg:w-1/2">
               <label className="label">
-                <span className="label-text">Description</span>
+                <span className="label-text">District</span>
               </label>
               <label className="input-group">
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Description"
-                  className="input input-bordered w-full"
+              <select
+                  className="select input input-bordered w-full max-w-sm"
+                  id="upazilaSelect"
                   required
-                />
+                >
+                     <option value="" disabled selected>
+                        Select Upazila
+                      </option>
+                      {upazilas
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map((upazila) => (
+                          <option key={upazila._id} value={upazila.name}>
+                            {upazila.name}
+                          </option>
+                        ))}
+                </select>
               </label>
             </div>
           </div> 
@@ -232,9 +256,9 @@ const Registration = () => {
              </div>
              <div className="form-control md:w-full lg:w-1/2">
                  <label className="label">
-                 <span className="label-text">Password</span>
+                 <span className="label-text">Confirm Password</span>
                   </label>
-                  <input type="password"  placeholder="password" className="input input-bordered" name='password' required/>
+                  <input type="password"  placeholder="password" className="input input-bordered" name='confirmPassword' required/>
              </div>
 
             </div>
