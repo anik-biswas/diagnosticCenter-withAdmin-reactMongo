@@ -23,7 +23,7 @@ const Login = () => {
 
         });
     };
-    const handleLogin =(e) => {
+    const handleLogin =async(e) => {
        e.preventDefault();
       
         console.log(e.currentTarget);
@@ -31,19 +31,36 @@ const Login = () => {
         const email =form.get('email');
         const password =form.get('password');
         console.log(form.get("email"));
-        signIn(email,password)
-        .then(result=>{
-            console.log(result.user);
-            navigate(location?.state ? location.state : '/');
-
-          //  toast.success('Login successful!'); 
-        })
-        .catch( error=>{
-            console.error(error);
-         //   toast.error('Login failed. Please check your credentials.');
-
-        })
-        
+        const userResponse = await fetch(`http://localhost:5000/user/email?email=${email}`);
+        const userData = await userResponse.json();
+        console.log(userData)
+        if (userData?.length > 0) {
+          const user = userData[0];
+    
+          // Check if the user is active
+          if (user.status === 'active') {
+            // Proceed with login
+            signIn(email, password)
+              .then((result) => {
+                console.log(result.user);
+                setError("")
+                //navigate(location?.state ? location.state : '/');
+                // toast.success('Login successful!');
+              })
+              .catch((error) => {
+                console.error(error);
+                //setError(error)
+                // toast.error('Login failed. Please check your credentials.');
+              });
+          } else {
+            // User is not active, show an error
+            setError('Your account is not active. Please contact the administrator.');
+          }
+        } else {
+          // User not found, show an error
+          setError('User not found. Please check your credentials.');
+        }
+       //setError("")
     };
 
     return (
