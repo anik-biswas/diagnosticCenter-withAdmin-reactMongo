@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { FaDev, FaTrash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const AllUser = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,6 +26,41 @@ const AllUser = () => {
         setSelectedUser(null);
         setIsModalOpen(false);
       };
+
+      const handleDelete = id => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete Product won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/user/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount > 0) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your Coffee has been deleted.',
+                                'success'
+                            )
+                            const remainingUsers = users.filter(user => user._id !== id);
+                            setUser(remainingUsers);
+                    
+                        }
+                    })
+
+            }
+        })
+    }
 
     return (
         <div>
@@ -77,6 +113,7 @@ const AllUser = () => {
                                 <th className="text-red-400">Photo</th>
                                 <th className="text-red-400">Status</th>
                                 <th className="text-red-400">Action</th>
+                                <th className="text-red-400">Delete</th>
                             </tr>
                         </thead>
                         
@@ -94,6 +131,9 @@ const AllUser = () => {
                                     <button onClick={() => openModal(user)} className="btn">
                                             See Info
                                         </button>
+                                    </td>
+                                    <td>
+                                    <FaTrash onClick={() => handleDelete(user._id)} className="text-red-500"></FaTrash>
                                     </td>
                                 </tr>
                             ))}
