@@ -13,6 +13,16 @@ const ManageBanner = () => {
         .then(data =>setBanners(data))
         
     },[])
+    useEffect(() => {
+        fetchBanners();
+      }, []); 
+    
+      const fetchBanners = () => {
+        fetch('http://localhost:5000/dashboard/banner')
+          .then(res => res.json())
+          .then(data => setBanners(data))
+          .catch(error => console.error('Error fetching banners:', error));
+      };
     console.log(banners)
     const handleDelete = id => {
         Swal.fire({
@@ -48,6 +58,27 @@ const ManageBanner = () => {
             }
         })
     }
+    const handleToggleActive = id => {
+        // Assuming you have a function to toggle isActive status on the backend
+        fetch(`http://localhost:5000/dashboard/banner/toggle-active/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ isActive: true }), // Set to true, assuming you're activating this banner
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              // If the update is successful, fetch the banners again to reflect the changes
+              fetchBanners();
+            } else {
+              console.error('Error toggling isActive status:', data.error);
+            }
+          })
+          .catch(error => console.error('Error toggling isActive status:', error));
+      };
+    
     return (
         <div>
         
@@ -77,12 +108,9 @@ const ManageBanner = () => {
                                     <td>{banner.coupon}</td>
                                     <td>{banner.discount}</td>
                                     <td><img src={banner.bannerImg} alt=""  className="w-14 h-14"/></td>
-                                    {
-                                        banner.isActive ?
-                                        <td>true</td>
-                                        :
-                                        <td>False</td>
-                                    }
+                                    <td onClick={() => handleToggleActive(banner._id, banner.isActive)}>
+                                    {banner.isActive ? 'True' : 'False'}
+                                    </td>
                                     
                                     <td>
                                     <FaTrash onClick={() => handleDelete(banner._id)}  className="text-red-500"></FaTrash>

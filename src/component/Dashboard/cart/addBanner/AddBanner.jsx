@@ -40,10 +40,11 @@ const AddBanner = () => {
                     .then(data => {
                         if(data.insertedId){
                           //  toast.success('Register & Database saved successful!'); 
+                          navigate(location?.state?.from || '/dashboard/manageBanner');
                         }
                         console.log(data)
                     })
-                    navigate(location?.state?.from || '/dashboard/manageBanner');
+                    
         }
        
     return (
@@ -58,6 +59,7 @@ const AddBanner = () => {
           </p>
         </div>
         <form  onSubmit={handleBanner}>
+       
           <div className="md:flex mb-4 lg:mb-8">
             <div className="form-control md:w-full lg:w-1/2">
               <label className="label">
@@ -135,6 +137,7 @@ const AddBanner = () => {
             </div>
           </div>
           <input type="submit" value="Add Job" className="btn btn-block" />
+          {/* <button onSubmit={handleBanner} className="btn btn-block" >Add Banner</button> */}
         </form>
       </div>
     </div>
