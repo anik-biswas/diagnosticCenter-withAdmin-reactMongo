@@ -100,7 +100,7 @@ const Registration = () => {
                         console.log(data)
                     })
 
-    //             navigate(location?.state ? location.state : '/',{state: {name}});
+                    navigate(location?.state?.from || '/dashboard');
     //             // navigate('/', { state: { name } });
     //             toast.success('Register successful!'); 
     //             //console.log(name,email,image,password);

@@ -61,6 +61,32 @@ const AllUser = () => {
             }
         })
     }
+    const handleMakeAdmin = async (selectedUser) => {
+        try {
+            const response = await fetch(`http://localhost:5000/user/admin/${selectedUser._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // You can include a request body if needed
+                // body: JSON.stringify({ /* any additional data you want to send */ }),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Failed to update user role: ${response.statusText}`);
+            }
+    
+            // Handle success, e.g., update the UI or show a success message
+            const updatedUserResponse = await fetch(`http://localhost:5000/user/admin/${selectedUser._id}`);
+            const updatedUserData = await updatedUserResponse.json();
+
+            setSelectedUser(updatedUserData);
+            console.log('User role updated to admin');
+        } catch (error) {
+           
+            console.error(error.message);
+        }
+    };
 
     return (
         <div>
@@ -91,12 +117,17 @@ const AllUser = () => {
                 </div>
                 
                 {/* Add more user information as needed */}
+               {
+                selectedUser.role==='admin'?"Admin" :
+               
                 <button
                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    onClick={closeModal}
+                    onClick={() => handleMakeAdmin(selectedUser)}
                 >
-                    Close Modal
+                    Make Admin
                 </button>
+                }
+                <button className="text-right" onClick={closeModal}>close</button>
                 </div>
             </div>
             )}
