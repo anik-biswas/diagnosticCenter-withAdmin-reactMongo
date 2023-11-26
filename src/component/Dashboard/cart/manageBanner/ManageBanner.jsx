@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ManageBanner = () => {
     const location = useLocation();
@@ -13,6 +14,40 @@ const ManageBanner = () => {
         
     },[])
     console.log(banners)
+    const handleDelete = id => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete Banner won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/dashboard/banner/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount > 0) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your Coffee has been deleted.',
+                                'success'
+                            )
+                            const remainingBanners = banners.filter(banner=> banner._id !== id);
+                            setBanners(remainingBanners);
+                    
+                        }
+                    })
+
+            }
+        })
+    }
     return (
         <div>
         
@@ -50,7 +85,7 @@ const ManageBanner = () => {
                                     }
                                     
                                     <td>
-                                    <FaTrash  className="text-red-500"></FaTrash>
+                                    <FaTrash onClick={() => handleDelete(banner._id)}  className="text-red-500"></FaTrash>
                                     </td>
                                 </tr>
                             ))}
