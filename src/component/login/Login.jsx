@@ -14,10 +14,32 @@ const Login = () => {
    
     const handleGoogle = () => {
         googleSignIn().then((result) =>{
+            const createdAt = result.user?.metadata?.creationTime;
+            const userInfo = {
+                email: result.user?.email,
+                name: result.user?.displayName,
+                image: result.user?.photoURL,
+                status: "active",
+                createdAt: createdAt
+            }
+            fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                          //  toast.success('Register & Database saved successful!'); 
+                        }
+                        console.log(data)
+                    })
             
             console.log(result.user);
         
-            navigate(location?.state ? location.state : '/');
+            navigate(location?.state?.from || '/dashboard');
 
            //toast.success('You Login with Google');
 
@@ -44,11 +66,12 @@ const Login = () => {
               .then((result) => {
                 console.log(result.user);
                 setError("")
+                navigate(location?.state?.from || '/dashboard');
                 //navigate(location?.state ? location.state : '/');
                 // toast.success('Login successful!');
               })
               .catch((error) => {
-                console.error(error);
+                setError("Email or password does not match");
                 //setError(error)
                 // toast.error('Login failed. Please check your credentials.');
               });

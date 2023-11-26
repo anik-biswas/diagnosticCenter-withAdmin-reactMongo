@@ -63,7 +63,7 @@ const Registration = () => {
      }
      else {
         setError("");
-    // Host image on imgbb
+   
     const imgbbFormData = new FormData();
     imgbbFormData.append('image', imageFile);
   
@@ -127,7 +127,7 @@ const Registration = () => {
                     <div className="text-center ">
                         <h1 className="text-xl md:text-2xl lg:text-5xl font-bold">Register now!</h1>
                     </div>
-                    <div className="card flex-shrink-0  w-64 md:w-full max-w-lg shadow-2xl bg-[#50e6da]">
+                    <div className="card flex-shrink-0  w-64 md:w-full max-w-lg shadow-2xl bg-[#e9edc9]">
                         <form onSubmit={handleRegister} className="card-body">
                         <div>
                                 <p>{error}</p>
