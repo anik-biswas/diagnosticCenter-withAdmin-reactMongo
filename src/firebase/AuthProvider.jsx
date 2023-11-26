@@ -29,6 +29,36 @@ const AuthProvider = ({children}) => {
      const unSubscribe=   onAuthStateChanged(auth,currentUser =>{
             
             setUser(currentUser);
+            if (currentUser) {
+                const userInfo = { email: currentUser.email };
+                const accessToken = localStorage.getItem('access-token');
+              //console.log(accessToken)
+                // const headers = {
+                //   'Content-Type': 'application/json',
+                // };
+              
+                // if (accessToken) {
+                //   headers['Authorization'] = `Bearer ${accessToken}`;
+                // }
+              
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': `Bearer ${localStorage.getItem('access-token')}`,
+                    },
+                    body: JSON.stringify(userInfo),
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.token) {
+                        localStorage.setItem('access-token', data.token);
+                        console.log(data);
+                    }
+                    });
+              } else {
+                localStorage.removeItem('access-token');
+              } 
             setLoading(false);
            
         })
