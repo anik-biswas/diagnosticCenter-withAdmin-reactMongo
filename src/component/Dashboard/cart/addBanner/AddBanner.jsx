@@ -136,7 +136,7 @@ const AddBanner = () => {
               </label>
             </div>
           </div>
-          <input type="submit" value="Add Job" className="btn btn-block" />
+          <input type="submit" value="Add Banner" className="btn btn-block" />
           {/* <button onSubmit={handleBanner} className="btn btn-block" >Add Banner</button> */}
         </form>
       </div>
