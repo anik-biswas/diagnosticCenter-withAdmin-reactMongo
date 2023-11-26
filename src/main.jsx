@@ -22,6 +22,11 @@ import Root from './component/Root.jsx'
 import Dashboard from './component/Dashboard/cart/Dashboard.jsx'
 import Login from './component/login/Login.jsx'
 import Registration from './component/login/Registration.jsx'
+import AllUser from './component/Dashboard/cart/allUser/AllUser.jsx'
+import AddBanner from './component/Dashboard/cart/addBanner/AddBanner.jsx'
+import AddTest from './component/Dashboard/cart/addTest/AddTest.jsx'
+import ManageBanner from './component/Dashboard/cart/manageBanner/ManageBanner.jsx'
+import ManageTest from './component/Dashboard/cart/manageTest/ManageTest.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +55,26 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children : [
 
+      {
+        path: "allUser",
+        element: <AllUser></AllUser>,
+      },
+      {
+        path: "addBanner",
+        element: <AddBanner></AddBanner>,
+      },
+      {
+        path: "addTest",
+        element: <AddTest></AddTest>,
+      },
+      {
+        path: "manageBanner",
+        element: <ManageBanner></ManageBanner>,
+      },
+      {
+        path: "manageTest",
+        element: <ManageTest></ManageTest>,
+      },
     ]
   }
 
