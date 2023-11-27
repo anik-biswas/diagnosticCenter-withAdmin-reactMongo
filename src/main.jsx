@@ -29,6 +29,7 @@ import ManageBanner from './component/Dashboard/cart/manageBanner/ManageBanner.j
 import ManageTest from './component/Dashboard/cart/manageTest/ManageTest.jsx'
 import UpdateTest from './component/Dashboard/cart/updateTest/UpdateTest.jsx'
 import Home from './component/home/Home.jsx'
+import AllTest from './component/allTest/AllTest.jsx'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration></Registration>,
+      },
+      {
+        path: "/allTest",
+        element: <AllTest></AllTest>,
       },
 
     ]

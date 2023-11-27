@@ -28,7 +28,7 @@ const Dashboard = () => {
 
  // console.log(userData);
   
- if (userData && userData.length > 0 && userData[0]?.role === 'admin') {
+ if (userData && userData?.length > 0 && userData[0]?.role === 'admin') {
     isAdmin = true;
   }
 

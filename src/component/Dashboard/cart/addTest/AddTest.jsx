@@ -2,6 +2,7 @@ import { useState } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=83a471512dcffa8098e5f1e4afd247df`;
 
 const AddTest = () => {
@@ -44,6 +45,12 @@ const AddTest = () => {
             .then(res => res.json())
                 .then(data => {
                     if(data.insertedId){
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Test added Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'Ok',
+                        });
                       //  toast.success('Register & Database saved successful!'); 
                       navigate(location?.state?.from || '/dashboard/manageTest');
                     }
@@ -72,7 +79,7 @@ const AddTest = () => {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Banner Title"
+                    placeholder="Test Title"
                     className="input input-bordered w-full"
                     required
                   />
@@ -86,7 +93,7 @@ const AddTest = () => {
                 <input
                     type="text"
                     name="slot"
-                    placeholder="Banner Description"
+                    placeholder="Slots"
                     className="input input-bordered w-full"
                     required
                   />
