@@ -59,18 +59,18 @@ const ManageBanner = () => {
         })
     }
     const handleToggleActive = id => {
-        // Assuming you have a function to toggle isActive status on the backend
+        
         fetch(`http://localhost:5000/dashboard/banner/toggle-active/${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ isActive: true }), // Set to true, assuming you're activating this banner
+          body: JSON.stringify({ isActive: true }),
         })
           .then(res => res.json())
           .then(data => {
             if (data.success) {
-              // If the update is successful, fetch the banners again to reflect the changes
+             
               fetchBanners();
             } else {
               console.error('Error toggling isActive status:', data.error);
