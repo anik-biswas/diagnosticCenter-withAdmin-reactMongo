@@ -133,6 +133,7 @@ const ManageTest = () => {
                 });
                 closeModal()
                 navigate(location?.state?.from || '/dashboard/manageTest');
+                window.location.reload();
 
             } else {
                 console.log('No update');
