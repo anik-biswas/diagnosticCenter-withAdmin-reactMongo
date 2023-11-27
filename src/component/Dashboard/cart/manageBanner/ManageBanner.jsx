@@ -104,13 +104,15 @@ const ManageBanner = () => {
                                 <tr key={banner._id}>
                                     <td>{index + 1}</td>
                                     <td className="text-xs">{banner.name}</td>
-                                    <td>{banner.description} </td>
+                                    {banner.description.length > 20
+                                        ? `${banner.description.slice(0, 20)}...`
+                                        : banner.description}
                                     <td>{banner.coupon}</td>
                                     <td>{banner.discount}</td>
                                     <td><img src={banner.bannerImg} alt=""  className="w-14 h-14"/></td>
-                                    <td onClick={() => handleToggleActive(banner._id, banner.isActive)}>
+                                    <button className='btn mt-5'><td onClick={() => handleToggleActive(banner._id, banner.isActive)}>
                                     {banner.isActive ? 'True' : 'False'}
-                                    </td>
+                                    </td></button>
                                     
                                     <td>
                                     <FaTrash onClick={() => handleDelete(banner._id)}  className="text-red-500"></FaTrash>

@@ -28,6 +28,7 @@ import AddTest from './component/Dashboard/cart/addTest/AddTest.jsx'
 import ManageBanner from './component/Dashboard/cart/manageBanner/ManageBanner.jsx'
 import ManageTest from './component/Dashboard/cart/manageTest/ManageTest.jsx'
 import UpdateTest from './component/Dashboard/cart/updateTest/UpdateTest.jsx'
+import Home from './component/home/Home.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
     children : [
       {
         path: "/",
-        //element: <Home></Home>,
+        element: <Home></Home>,
       },
     
       {
