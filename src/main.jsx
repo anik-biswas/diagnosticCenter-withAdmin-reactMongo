@@ -27,6 +27,7 @@ import AddBanner from './component/Dashboard/cart/addBanner/AddBanner.jsx'
 import AddTest from './component/Dashboard/cart/addTest/AddTest.jsx'
 import ManageBanner from './component/Dashboard/cart/manageBanner/ManageBanner.jsx'
 import ManageTest from './component/Dashboard/cart/manageTest/ManageTest.jsx'
+import UpdateTest from './component/Dashboard/cart/updateTest/UpdateTest.jsx'
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "manageTest",
         element: <ManageTest></ManageTest>,
+      },
+      {
+        path: "updateTest",
+        element: <UpdateTest></UpdateTest>,
       },
     ]
   }
