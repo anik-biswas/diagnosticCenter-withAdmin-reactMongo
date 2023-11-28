@@ -49,86 +49,75 @@ const getDiscountRateFromPromoCode = () => {
 
     // Placeholder, replace with actual logic
   };
-const handleBookNowClick = async () => {
-    let isPromoCodeEntered = false;
-  
+  let isPromoCodeApplied = false;
+
+  const handleBookNowClick = async () => {
     if (isSlotAvailable) {
       const result = await Swal.fire({
         title: 'Payment',
         html: `
-        <div>
-        <p>Original Price: $${price}</p>
-        <p>Discount Rate: ${discountRate}%</p>
-        <p>Discounted Price: $${calculateDiscountedPrice()}</p>
-      </div>
-      <input type="text" id="promoCodeInput" placeholder="Enter Promo Code" class="swal2-input">
-      <button  id="applyPromoCodeBtn" class="swal2-confirm swal2-styled">
-        Apply Promo Code
-      </button>
-    `,
+          <div>
+            <p>Original Price: $${price}</p>
+            <p>Discount Rate: ${discountRate}%</p>
+            <p>Discounted Price: $${calculateDiscountedPrice()}</p>
+          </div>
+          <input type="text" id="promoCodeInput" placeholder="Enter Promo Code" class="swal2-input">
+          <button id="applyPromoCodeBtn" class="swal2-confirm swal2-styled">
+            Apply Promo Code
+          </button>
+          <div id="payButtonContainer"></div>
+        `,
         showCancelButton: true,
-        showConfirmButton: false, // Hide default confirm button
+        showConfirmButton: false,
         cancelButtonText: 'Cancel',
         didOpen: () => {
-            console.log('Code block executed'); 
-            const promoCodeInput = document.getElementById('promoCodeInput');
-            const applyPromoCodeBtn = document.getElementById('applyPromoCodeBtn');
-            console.log(applyPromoCodeBtn); 
-          
-        applyPromoCodeBtn.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default behavior
-            console.log('Button clicked');
+          const promoCodeInput = document.getElementById('promoCodeInput');
+          const applyPromoCodeBtn = document.getElementById('applyPromoCodeBtn');
+          const payButtonContainer = document.getElementById('payButtonContainer');
+  
+          applyPromoCodeBtn.addEventListener('click', (event) => {
+            event.preventDefault();
             const appliedPromoCode = promoCodeInput.value.trim();
+  
             if (appliedPromoCode === promoCode) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Promo Code Applied!',
-                    text: `You have received a ${discountRate}% discount.`,
-                   
-                  });
+              // Set the variable to true when the promo code is successfully applied
+              isPromoCodeApplied = true;
+  
+              // Disable the "Apply Promo Code" button after successful application
+              applyPromoCodeBtn.disabled = true;
+  
+              // Create and append the "Pay Now" button
+              const payButton = document.createElement('button');
+            payButton.innerText = 'Pay Now';
+            payButton.className = 'swal2-confirm swal2-styled';
+  
+            payButton.addEventListener('click', () => {
+              // Handle the payment logic or navigate to the payment page
+              console.log('Payment logic goes here');
+            });
+  
+            payButtonContainer.appendChild(payButton);
+            Swal.update({ html: result.options.html + payButtonContainer.outerHTML });
+  
+              Swal.fire({
+                icon: 'success',
+                title: 'Promo Code Applied!',
+                text: `You have received a ${discountRate}% discount.`,
+              });
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Promo Code',
-                    text: 'Please enter a valid promo code.',
-                  });
+              Swal.fire({
+                icon: 'error',
+                title: 'Invalid Promo Code',
+                text: 'Please enter a valid promo code.',
+              });
             }
           });
-          },
-        // preConfirm: () => {
   
-        //     // Apply promo code logic
-        //     const promoCodeDiscountRate = getDiscountRateFromPromoCode();
-  
-        //     if (promoCodeDiscountRate > 0) {
-        //       // Valid promo code, update promo code and discount rate
-        //       setPromoCode(appliedPromoCode);
-        //       setDiscountRate(promoCodeDiscountRate);
-  
-        //       Swal.fire({
-        //         icon: 'success',
-        //         title: 'Promo Code Applied!',
-        //         text: `You have received a ${promoCodeDiscountRate}% discount.`,
-        //         html: `
-        //           <div>
-        //             <p>Original Price: $${price}</p>
-        //             <p>Discount Rate: ${promoCodeDiscountRate}%</p>
-        //             <p>Discounted Price: $${calculateDiscountedPrice()}</p>
-        //           </div>
-        //         `,
-        //       });
-        //     } else {
-        //       // Invalid promo code, handle accordingly
-        //       Swal.fire({
-        //         icon: 'error',
-        //         title: 'Invalid Promo Code',
-        //         text: 'Please enter a valid promo code.',
-        //       });
-        //     }
-          
-        //   // Return a dummy value to prevent Swal from closing immediately
-        //   return true;
-        // },
+          // Disable the "Apply Promo Code" button if the promo code is successfully applied
+          if (isPromoCodeApplied) {
+            applyPromoCodeBtn.disabled = true;
+          }
+        },
       });
     } else {
       Swal.fire({
