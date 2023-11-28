@@ -4,12 +4,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import ReactPaginate from 'react-paginate';
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=83a471512dcffa8098e5f1e4afd247df`;
-
+const itemsPerPage = 4; 
 const ManageTest = () => {
+
     const location = useLocation();
     const navigate = useNavigate();
     const [tests,setTests]= useState([]);
+    
     const [selectedTest, setSelectedTest] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect ( () => {
@@ -28,7 +31,19 @@ const ManageTest = () => {
           .catch(error => console.error('Error fetching banners:', error));
       };
       const [testDate, setTestDate] = useState(null);
+      const [currentPage, setCurrentPage] = useState(0);
 
+    const indexOfLastItem = (currentPage + 1) * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const displayedTests = tests.slice(indexOfFirstItem, indexOfLastItem);
+
+    const pageCount = Math.ceil(tests.length / itemsPerPage);
+
+    const handlePageClick = ({ selected }) => {
+      console.log("select")
+        setCurrentPage(selected);
+    };
+    //setTests(displayedTests)
       const openModal = (user) => {
         console.log(user)
         setTestDate(null)
@@ -318,6 +333,17 @@ const ManageTest = () => {
                             ))}
                         </tbody>
                     </table>
+                    <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+            />
                    
         </div>
         </div>

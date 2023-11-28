@@ -36,6 +36,10 @@ import Appointment from './component/Dashboard/cart/appointment/Appointment.jsx'
 import UserAppointment from './component/Dashboard/cart/appointment/UserAppointment.jsx'
 import UserTestReport from './component/Dashboard/cart/testReport/userTestReport.jsx'
 import Profile from './component/Dashboard/cart/profile/Profile.jsx'
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme'; 
+import About from './component/about/About.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/allTest",
         element: <AllTest></AllTest>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
       {
         path: "testDetails/:id",
@@ -129,10 +137,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
     {/* <App /> */}
     <AuthProvider>
     <RouterProvider router={router} />
     </AuthProvider>
-
+</ThemeProvider>
   </React.StrictMode>,
 )
