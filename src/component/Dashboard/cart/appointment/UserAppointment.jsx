@@ -11,7 +11,7 @@ const UserAppointment = () => {
     const email= user?.email;
     const [reserves, setReserve] = useState(useLoaderData());
 
-    const userReserves = reserves.filter((reserve) => reserve.email === email);
+    const userReserves = reserves.filter((reserve) => reserve.email === email && reserve.status === 'delivered');
      
     const handleDelete = id => {
         Swal.fire({
