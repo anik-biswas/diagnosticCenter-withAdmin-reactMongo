@@ -3,7 +3,7 @@ import { FaTrash, FaUpload } from 'react-icons/fa';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const Appointment = () => {
+const UserAppointment = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [reserves, setReserve] = useState(useLoaderData());
@@ -147,4 +147,4 @@ const Appointment = () => {
     );
 };
 
-export default Appointment;
+export default UserAppointment;

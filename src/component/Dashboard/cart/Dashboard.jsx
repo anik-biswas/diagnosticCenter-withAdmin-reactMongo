@@ -88,7 +88,7 @@ const Dashboard = () => {
                         </li>
                    
                     <li>
-                        <NavLink to="/dashboard/appointment">
+                        <NavLink to="/dashboard/userAppointment">
                         <FaBookMedical />
                             Appointment</NavLink>
                     </li>

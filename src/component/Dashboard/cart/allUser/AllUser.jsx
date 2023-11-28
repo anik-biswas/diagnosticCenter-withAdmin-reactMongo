@@ -68,8 +68,7 @@ const AllUser = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // You can include a request body if needed
-                // body: JSON.stringify({ /* any additional data you want to send */ }),
+                
             });
     
             if (!response.ok) {
