@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../firebase/AuthProvider';
 import Swal from 'sweetalert2';
 
-const Checkout = ({testId,name, discountPrice }) => {
+const Checkout = ({testId,name,testDate, discountPrice }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
@@ -124,6 +124,7 @@ const Checkout = ({testId,name, discountPrice }) => {
                     date: new Date(), // utc date convert. use moment js to 
                     testId : testId,
                     testName:name,
+                    testDate :testDate,
                     status: 'pending'
                 }
 
@@ -144,7 +145,7 @@ const Checkout = ({testId,name, discountPrice }) => {
                             confirmButtonText: 'Ok',
                         });
                       //  toast.success('Register & Database saved successful!'); 
-                      //navigate(location?.state?.from || '/dashboard/reserve');
+                      navigate(location?.state?.from || '/dashboard/userAppointment');
                     }
                     console.log(data)
                 })

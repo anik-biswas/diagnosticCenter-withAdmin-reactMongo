@@ -11,7 +11,7 @@ const UserAppointment = () => {
     const email= user?.email;
     const [reserves, setReserve] = useState(useLoaderData());
 
-    const userReserves = reserves.filter((reserve) => reserve.email === email && reserve.status === 'delivered');
+    const userReserves = reserves.filter((reserve) => reserve.email === email && reserve.status === 'pending');
      
     const handleDelete = id => {
         Swal.fire({
@@ -59,6 +59,7 @@ const UserAppointment = () => {
                                 <th className="text-red-400">Test Name</th>
                                 <th className="text-red-400">User Email</th>
                                 <th className="text-red-400">TransId</th>
+                                <th className="text-red-400">Test Date</th>
                                 
                                 <th className="text-red-400">Status</th>
                                 
@@ -73,6 +74,7 @@ const UserAppointment = () => {
                                     <td className="text-xs">{reserve.testName}</td>
                                     <td>{reserve.email} </td>
                                     <td>{reserve.transactionId}</td>
+                                    <td>{reserve.testDate}</td>
                                     <td>{reserve.status}</td>
                                     
                                     <td><FaTrash onClick={() => handleDelete(reserve._id)} className="text-red-500"></FaTrash></td>
