@@ -81,10 +81,10 @@ const AllUser = () => {
                 throw new Error(`Failed to update user role: ${response.statusText}`);
             }
     
-            const updatedUserResponse = await fetch(`http://localhost:5000/user/admin/${selectedUser._id}`);
+            const updatedUserResponse = await fetch(`http://localhost:5000/user`);
             const updatedUserData = await updatedUserResponse.json();
 
-            setSelectedUser(updatedUserData);
+            setUser(updatedUserData);
             closeModal()
             console.log('User role updated to admin');
         } catch (error) {
@@ -107,10 +107,10 @@ const AllUser = () => {
             }
     
             // Handle success, e.g., update the UI or show a success message
-            const updatedUserResponse = await fetch(`http://localhost:5000/user/adminBlock/${selectedUser._id}`);
+            const updatedUserResponse = await fetch(`http://localhost:5000/user`);
             const updatedUserData = await updatedUserResponse.json();
 
-            setSelectedUser(updatedUserData);
+            setUser(updatedUserData);
             closeModal()
             console.log('User role updated Blocked');
         } catch (error) {
