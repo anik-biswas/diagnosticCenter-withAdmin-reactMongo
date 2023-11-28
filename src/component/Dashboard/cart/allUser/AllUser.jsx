@@ -8,7 +8,7 @@ const AllUser = () => {
     const [users,setUser]= useState([]);
     const [selectedUser, setSelectedUser] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
     useEffect ( () => {
         fetch('http://localhost:5000/user')
         .then (res => res.json())
@@ -21,10 +21,16 @@ const AllUser = () => {
         setSelectedUser(user);
         setIsModalOpen(true);
       };
+      const openModal2 = (user) => {
+        console.log(user)
+        setSelectedUser(user);
+        setIsModalOpen2(true);
+      };
     
       const closeModal = () => {
         setSelectedUser(null);
         setIsModalOpen(false);
+        setIsModalOpen2(false);
       };
 
       const handleDelete = id => {
@@ -75,18 +81,43 @@ const AllUser = () => {
                 throw new Error(`Failed to update user role: ${response.statusText}`);
             }
     
-            // Handle success, e.g., update the UI or show a success message
             const updatedUserResponse = await fetch(`http://localhost:5000/user/admin/${selectedUser._id}`);
             const updatedUserData = await updatedUserResponse.json();
 
             setSelectedUser(updatedUserData);
+            closeModal()
             console.log('User role updated to admin');
         } catch (error) {
            
             console.error(error.message);
         }
     };
+    const handleMakeBlocked = async (selectedUser) => {
+        try {
+            const response = await fetch(`http://localhost:5000/user/adminBlock/${selectedUser._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Failed to update user role: ${response.statusText}`);
+            }
+    
+            // Handle success, e.g., update the UI or show a success message
+            const updatedUserResponse = await fetch(`http://localhost:5000/user/adminBlock/${selectedUser._id}`);
+            const updatedUserData = await updatedUserResponse.json();
 
+            setSelectedUser(updatedUserData);
+            closeModal()
+            console.log('User role updated Blocked');
+        } catch (error) {
+           
+            console.error(error.message);
+        }
+    };
     return (
         <div>
         <div className=" my-4 mx-10 md:mx-20 lg:mx-24">
@@ -115,7 +146,6 @@ const AllUser = () => {
                     </div>
                 </div>
                 
-                {/* Add more user information as needed */}
                {
                 selectedUser.role==='admin'?"Admin" :
                
@@ -126,8 +156,25 @@ const AllUser = () => {
                     Make Admin
                 </button>
                 }
-                <button className="text-right" onClick={closeModal}>close</button>
+                <button className="text-right btn ml-6" onClick={closeModal}>close</button>
                 </div>
+            </div>
+            )}
+            {isModalOpen2  && selectedUser &&  (
+            <div className="fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-50 flex">
+                 
+                <div className="relative p-4 max-w-xl m-auto bg-white w-full">
+                <p className='test-xl font-bold my-6'>User will Blocked </p>
+                
+                <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    onClick={() => handleMakeBlocked(selectedUser)}
+                >
+                    Blocked
+                </button>
+                <button className=" btn ml-20" onClick={closeModal}>close</button>
+                </div>
+                
             </div>
             )}
 
@@ -156,7 +203,7 @@ const AllUser = () => {
                                     <td>{user.district}</td>
                                     <td>{user.upazila}</td>
                                     <td><img src={user.image} alt=""  className="w-14 h-14"/></td>
-                                    <td>{user.status}</td>
+                                    <td ><p  onClick={() => openModal2(user)} className="text-sky-600  underline">{user.status}</p></td>
                                     <td>
                                     <button onClick={() => openModal(user)} className="btn">
                                             See Info
