@@ -7,6 +7,7 @@ const TestDetails = () => {
     const navigate = useNavigate();
     const [test, setTest] = useState(useLoaderData());
     const { _id,name,description,testDate,price,slot,testImg} = test;
+    const testId =_id;
    // console.log(test)
    const isSlotAvailable = slot > 0;
    console.log(isSlotAvailable)
@@ -95,8 +96,8 @@ const getDiscountRateFromPromoCode = () => {
               // Handle the payment logic or navigate to the payment page
               console.log('Payment logic goes here');
               const discountPrice = calculateDiscountedPrice();
-              console.log(discountPrice)
-              navigate('/payment', { state: { discountPrice} });
+              console.log(testId,discountPrice)
+              navigate('/payment', { state: { testId, discountPrice} });
               Swal.close();
             });
   

@@ -13,12 +13,12 @@ const Payment = () => {
     return null;
   }
 
-  const { discountPrice } = state;
-    
+  const { testId, discountPrice } = state;
+    console.log(testId,discountPrice);
     return (
         <div>
            <Elements stripe={stripPromise}>
-           <Checkout discountPrice={discountPrice} />
+           <Checkout discountPrice={discountPrice} testId={testId} />
            </Elements>
         </div>
     );

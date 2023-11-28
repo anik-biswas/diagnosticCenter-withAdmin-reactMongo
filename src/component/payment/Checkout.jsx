@@ -2,20 +2,47 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../firebase/AuthProvider';
+import Swal from 'sweetalert2';
 
-const Checkout = ({ discountPrice }) => {
+const Checkout = ({testId, discountPrice }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
-    
+    const [testSlotNumber, setTestSlotNumber] = useState(0);
     const { user } = useContext(AuthContext);
     
     const navigate = useNavigate();
     
-    console.log(discountPrice)
-
+    console.log(testId,discountPrice)
+    
+    useEffect(() => {
+        // Make an API call to get the test information based on testId
+        const fetchTestInformation = async () => {
+          try {
+            const response = await fetch(`http://localhost:5000/testDetails/${testId}`);
+            const data = await response.json();
+    
+            if (response.ok) {
+              
+              const currentSlotNumber = data.slot;
+              console.log(currentSlotNumber)
+            
+              setTestSlotNumber(currentSlotNumber);
+            } else {
+              console.error('Failed to fetch test information:', data.error);
+            }
+          } catch (error) {
+            console.error('Error fetching test information:', error);
+          }
+        };
+    
+        if (testId) {
+          fetchTestInformation();
+        }
+      }, [testId]);
+    
     useEffect(() => {
         fetchClientSecret();
       }, [discountPrice]);
@@ -90,29 +117,36 @@ const Checkout = ({ discountPrice }) => {
                 setTransactionId(paymentIntent.id);
             
                 // now save the payment in the database
-                // const payment = {
-                //     email: user?.email,
-                //     price: totalPrice,
-                //     transactionId: paymentIntent.id,
-                //     date: new Date(), // utc date convert. use moment js to 
-                //     cartIds: cart.map(item => item._id),
-                //     menuItemIds: cart.map(item => item.menuId),
-                //     status: 'pending'
-                // }
+                const reserve = {
+                    email: user?.email,
+                    price: discountPrice ,
+                    transactionId: paymentIntent.id,
+                    date: new Date(), // utc date convert. use moment js to 
+                    testId : testId,
+                    status: 'pending'
+                }
 
-                // const res = await axiosSecure.post('/payments', payment);
-                // console.log('payment saved', res.data);
-                // refetch();
-                // if (res.data?.paymentResult?.insertedId) {
-                //     Swal.fire({
-                //         position: "top-end",
-                //         icon: "success",
-                //         title: "Thank you for the taka paisa",
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                //     navigate('/dashboard/paymentHistory')
-                // }
+                fetch('http://localhost:5000/reserve', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(reserve)
+            })
+            .then(res => res.json())
+                .then(data => {
+                    if(data.insertedId){
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Payment Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'Ok',
+                        });
+                      //  toast.success('Register & Database saved successful!'); 
+                      //navigate(location?.state?.from || '/dashboard/reserve');
+                    }
+                    console.log(data)
+                })
 
             }
         }
