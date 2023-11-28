@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaTrash, FaUpload } from 'react-icons/fa';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../../../firebase/AuthProvider';
 
 const UserAppointment = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
+    const email= user?.email;
     const [reserves, setReserve] = useState(useLoaderData());
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedReserve, setSelectedReserve] = useState(null);
-    console.log(reserves)
-    const openModal = (reserve) => {
-        setSelectedReserve(reserve);
-        setIsModalOpen(true);
-      };
-      const closeModal = () => {
-        setSelectedReserve(null);
-        setIsModalOpen(false);
-      };
 
+    const userReserves = reserves.filter((reserve) => reserve.email === email);
+     
     const handleDelete = id => {
         Swal.fire({
             title: 'Are you sure?',
@@ -44,7 +38,7 @@ const UserAppointment = () => {
                                 'Your appointment has been deleted.',
                                 'success'
                             )
-                            const remainingApps = reserves.filter(reserve => reserve._id !== id);
+                            const remainingApps = userReserves.filter(reserve => reserve._id !== id);
                             setReserve(remainingApps);
                     
                         }
@@ -53,66 +47,10 @@ const UserAppointment = () => {
             }
         })
     }
-    console.log(selectedReserve)
-    const handleReportSubmit = async () => {
-        try {
-          const pdfLinkInput = document.getElementById('pdfInput'); 
-          const pdfLink = pdfLinkInput.value.trim();
-      
-          if (!pdfLink) {
-            console.error('PDF link is required.');
-            return;
-          }
-      
-          const status = 'delivered';
-      
-          const response = await fetch(`http://localhost:5000/reserve/${selectedReserve._id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ pdfLink, status }), // Include the data payload
-          });
-      
-          if (!response.ok) {
-            throw new Error(`Failed to update status: ${response.statusText}`);
-          }
-      
-          // Handle success, e.g., update the UI or show a success message
-          const updatedReserve = await fetch(`http://localhost:5000/reserve`);
-          const updatedReserveData = await updatedReserve.json();
-      
-          setReserve(updatedReserveData);
-          closeModal()
-          Swal.fire({text:'Reservation status updated to delivered'});
-        } catch (error) {
-          console.error(error.message);
-        }
-      };
-      
+   
     return (
         <div className='overflow-x-auto justify-center items-center text-center px-5 md:px-10 lg:px-20'>
-        {isModalOpen  && (
-            <div className="fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-50 flex">
-                 
-                <div className="relative p-4 max-w-xl m-auto bg-white w-full">
-                <p className='test-xl font-bold my-6'>Please  Provide Paitent Report</p>
-                
-                {/* Modal content goes here */}
-                <input className='border-2 mx-5' name='file' type="text" id="pdfInput" placeholder="PDF link" />
-                
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    onClick={() => handleReportSubmit()}
-                >
-                    Report Submit
-                </button>
-                <button className="ml-20" onClick={closeModal}>X</button>
-                </div>
-                
-            </div>
-            )}
-
+        
             <table className="table">
                         
                         <thead>
@@ -123,20 +61,20 @@ const UserAppointment = () => {
                                 <th className="text-red-400">TransId</th>
                                 
                                 <th className="text-red-400">Status</th>
-                                <th className="text-red-400">Upload</th>
+                                
                                 <th className="text-red-400">Delete</th>
                             </tr>
                         </thead>
                         
                         <tbody>
-                            {reserves.map((reserve, index) => (
+                            {userReserves.map((reserve, index) => (
                                 <tr key={reserve._id}>
                                     <td>{index + 1}</td>
                                     <td className="text-xs">{reserve.testName}</td>
                                     <td>{reserve.email} </td>
                                     <td>{reserve.transactionId}</td>
                                     <td>{reserve.status}</td>
-                                    <td><FaUpload onClick={() => openModal(reserve)}></FaUpload></td>
+                                    
                                     <td><FaTrash onClick={() => handleDelete(reserve._id)} className="text-red-500"></FaTrash></td>
                                     
                                 </tr>

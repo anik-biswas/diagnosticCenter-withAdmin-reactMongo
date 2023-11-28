@@ -93,7 +93,7 @@ const Dashboard = () => {
                             Appointment</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/testResult">
+                        <NavLink to="/dashboard/userTestReport">
                         <FaBookMedical />
                             Test Result</NavLink>
                     </li>
