@@ -30,6 +30,7 @@ import ManageTest from './component/Dashboard/cart/manageTest/ManageTest.jsx'
 import UpdateTest from './component/Dashboard/cart/updateTest/UpdateTest.jsx'
 import Home from './component/home/Home.jsx'
 import AllTest from './component/allTest/AllTest.jsx'
+import TestDetails from './component/testDetails/TestDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
       {
         path: "/allTest",
         element: <AllTest></AllTest>,
+      },
+      {
+        path: "testDetails/:id",
+        element: <TestDetails></TestDetails>,
+        loader : ({params}) => fetch(`http://localhost:5000/testDetails/${params.id}`),
       },
 
     ]
