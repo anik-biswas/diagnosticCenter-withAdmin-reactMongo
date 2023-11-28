@@ -89,12 +89,12 @@ const ManageTest = () => {
             const testDate = form.get('testDate');
             const imageFile = form.get('testImg');
     
-            let imageUrl = selectedTest?.testImg; // Default to the previous value
+            let imageUrl = selectedTest?.testImg; 
     
-            if (imageFile) {
+            if (imageFile && imageFile.size > 0) {
                 const imgbbFormData = new FormData();
                 imgbbFormData.append('image', imageFile);
-    
+                
                 const imgbbRes = await fetch(image_hosting_api, {
                     method: 'POST',
                     body: imgbbFormData,
@@ -132,8 +132,12 @@ const ManageTest = () => {
                     confirmButtonText: 'Ok',
                 });
                 closeModal()
-                navigate(location?.state?.from || '/dashboard/manageTest');
-                window.location.reload();
+                // navigate(location?.state?.from || '/dashboard/manageTest');
+                // window.location.reload();
+                const updatedTest= await fetch(`http://localhost:5000/test`);
+                const updatedTestData = await updatedTest.json();
+
+            setTests(updatedTestData);
 
             } else {
                 console.log('No update');

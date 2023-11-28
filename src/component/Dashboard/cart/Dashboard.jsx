@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaBandAid, FaBookMedical, FaDatabase, FaFileMedical, FaHome, FaIdCard, FaReadme } from "react-icons/fa";
+import { FaBandAid, FaBookMedical, FaDatabase, FaFileMedical, FaHome, FaICursor, FaIcons, FaIdCard, FaReadme } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../firebase/AuthProvider";
 //import useCart from "../hooks/useCart";
@@ -35,7 +35,7 @@ const Dashboard = () => {
     return (
         <div className="flex">
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-orange-400">
+            <div className="w-64 min-h-screen bg-green-200">
                 <ul className="menu p-4">
                     {
                         isAdmin ?
@@ -107,8 +107,8 @@ const Dashboard = () => {
                             Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profile">
-                        <FaDatabase></FaDatabase>
+                        <NavLink to="/dashboard/profile">
+                        <FaIcons></FaIcons>
                             Profile</NavLink>
                     </li>
                    

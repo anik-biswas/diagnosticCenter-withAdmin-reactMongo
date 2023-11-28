@@ -35,6 +35,7 @@ import Payment from './component/payment/Payment.jsx'
 import Appointment from './component/Dashboard/cart/appointment/Appointment.jsx'
 import UserAppointment from './component/Dashboard/cart/appointment/UserAppointment.jsx'
 import UserTestReport from './component/Dashboard/cart/testReport/userTestReport.jsx'
+import Profile from './component/Dashboard/cart/profile/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,11 @@ const router = createBrowserRouter([
         path: "userTestReport",
         element: <UserTestReport></UserTestReport>,
         loader : () => fetch(`http://localhost:5000/reserve`),
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
+        loader : () => fetch(`http://localhost:5000/user`),
       },
     ]
   }
