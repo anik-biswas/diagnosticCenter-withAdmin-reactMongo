@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaBandAid, FaBookMedical, FaDatabase, FaFileMedical, FaHome, FaIdCard } from "react-icons/fa";
+import { FaBandAid, FaBookMedical, FaDatabase, FaFileMedical, FaHome, FaIdCard, FaReadme } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../firebase/AuthProvider";
 //import useCart from "../hooks/useCart";
@@ -68,10 +68,15 @@ const Dashboard = () => {
                             Manage Banner</NavLink>
                     </li>
                     <li>
+                        <NavLink to="/dashboard/appointment">
+                        <FaReadme />
+                            Appointment</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/dashboard/allUser">
                         <FaIdCard />
                             All  User </NavLink>
-                       </li>
+                    </li>
                     
                         </>
                         :

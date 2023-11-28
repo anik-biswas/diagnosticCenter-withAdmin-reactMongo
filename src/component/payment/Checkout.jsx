@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../firebase/AuthProvider';
 import Swal from 'sweetalert2';
 
-const Checkout = ({testId, discountPrice }) => {
+const Checkout = ({testId,name, discountPrice }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
@@ -15,7 +15,7 @@ const Checkout = ({testId, discountPrice }) => {
     
     const navigate = useNavigate();
     
-    console.log(testId,discountPrice)
+    console.log(testId,name,discountPrice)
     
     useEffect(() => {
         // Make an API call to get the test information based on testId
@@ -102,7 +102,7 @@ const Checkout = ({testId, discountPrice }) => {
                 card: card,
                 billing_details: {
                     email: user?.email || 'anonymous',
-                    name: user?.displayName || 'anonymous'
+                    
                 }
             }
         })
@@ -123,6 +123,7 @@ const Checkout = ({testId, discountPrice }) => {
                     transactionId: paymentIntent.id,
                     date: new Date(), // utc date convert. use moment js to 
                     testId : testId,
+                    testName:name,
                     status: 'pending'
                 }
 

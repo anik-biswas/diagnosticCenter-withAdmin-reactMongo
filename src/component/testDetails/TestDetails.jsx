@@ -97,7 +97,7 @@ const getDiscountRateFromPromoCode = () => {
               console.log('Payment logic goes here');
               const discountPrice = calculateDiscountedPrice();
               console.log(testId,discountPrice)
-              navigate('/payment', { state: { testId, discountPrice} });
+              navigate('/payment', { state: {name, testId, discountPrice} });
               Swal.close();
             });
   
