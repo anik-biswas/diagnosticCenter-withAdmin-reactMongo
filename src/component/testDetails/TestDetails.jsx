@@ -65,7 +65,7 @@ const getDiscountRateFromPromoCode = () => {
           <button id="applyPromoCodeBtn" class="swal2-confirm swal2-styled">
             Apply Promo Code
           </button>
-          <div id="payButtonContainer"></div>
+          <Link to ="/payment"><div id="payButtonContainer"></div></link>
         `,
         showCancelButton: true,
         showConfirmButton: false,
@@ -94,16 +94,15 @@ const getDiscountRateFromPromoCode = () => {
             payButton.addEventListener('click', () => {
               // Handle the payment logic or navigate to the payment page
               console.log('Payment logic goes here');
+              const discountPrice = calculateDiscountedPrice();
+              console.log(discountPrice)
+              navigate('/payment', { state: { discountPrice} });
+              Swal.close();
             });
   
             payButtonContainer.appendChild(payButton);
             Swal.update({ html: result.options.html + payButtonContainer.outerHTML });
   
-              Swal.fire({
-                icon: 'success',
-                title: 'Promo Code Applied!',
-                text: `You have received a ${discountRate}% discount.`,
-              });
             } else {
               Swal.fire({
                 icon: 'error',

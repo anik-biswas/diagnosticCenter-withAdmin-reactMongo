@@ -31,6 +31,7 @@ import UpdateTest from './component/Dashboard/cart/updateTest/UpdateTest.jsx'
 import Home from './component/home/Home.jsx'
 import AllTest from './component/allTest/AllTest.jsx'
 import TestDetails from './component/testDetails/TestDetails.jsx'
+import Payment from './component/payment/Payment.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
         path: "testDetails/:id",
         element: <TestDetails></TestDetails>,
         loader : ({params}) => fetch(`http://localhost:5000/testDetails/${params.id}`),
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+        
       },
 
     ]
