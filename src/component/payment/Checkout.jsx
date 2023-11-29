@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../firebase/AuthProvider';
 import Swal from 'sweetalert2';
+import { Button, Card, CardContent, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 const Checkout = ({testId,name,testDate, discountPrice }) => {
     const [error, setError] = useState('');
@@ -156,31 +158,50 @@ const Checkout = ({testId,name,testDate, discountPrice }) => {
     }
 
     return (
-        <div className='w-2/3'>
+      <div className="flex justify-center items-center h-full">
+      <Card className="w-2/3" sx={{ background: '#f0f0f0' }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Payment Details
+          </Typography>
           <form onSubmit={handleSubmit}>
             <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
-                            },
-                        },
-                        invalid: {
-                            color: '#9e2146',
-                        },
+              options={{
+                style: {
+                  base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                      color: '#aab7c4',
                     },
-                }}
+                  },
+                  invalid: {
+                    color: '#9e2146',
+                  },
+                },
+              }}
             />
-            <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-                Pay
-            </button>
-            <p className="text-red-600">{error}</p>
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
-        </form>
-        </div>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={!stripe || !clientSecret}
+              className="my-4"
+            >
+              Pay
+            </Button>
+            <Typography variant="body2" color="error">
+              {error}
+            </Typography>
+            {transactionId && (
+              <Typography variant="body2" color="success">
+                Your transaction ID: {transactionId}
+              </Typography>
+            )}
+          </form>
+        </CardContent>
+      </Card>
+    </div>
     );
 };
 

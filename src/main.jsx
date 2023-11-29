@@ -41,6 +41,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme'; 
 import About from './component/about/About.jsx'
 import Blog from './component/blog/Blog.jsx'
+import PrivateRoute from './component/PrivateRoute.jsx'
 
 const router = createBrowserRouter([
   {
@@ -75,12 +76,12 @@ const router = createBrowserRouter([
       },
       {
         path: "testDetails/:id",
-        element: <TestDetails></TestDetails>,
+        element:<PrivateRoute> <TestDetails></TestDetails></PrivateRoute> ,
         loader : ({params}) => fetch(`https://diagnostic-server-site.vercel.app/testDetails/${params.id}`),
       },
       {
         path: "payment",
-        element: <Payment></Payment>,
+        element: <PrivateRoute><Payment></Payment></PrivateRoute> ,
         
       },
 
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children : [
 
       {

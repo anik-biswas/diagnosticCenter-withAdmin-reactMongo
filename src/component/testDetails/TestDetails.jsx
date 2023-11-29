@@ -16,16 +16,16 @@ const TestDetails = () => {
    const [activeBanner, setActiveBanner] = useState(null);
 
    useEffect(() => {
-     // Fetch active banner data when the component mounts
+     
      fetch('https://diagnostic-server-site.vercel.app/active-banners')
        .then((res) => res.json())
        .then((data) => {
-         // Assuming the response structure contains promoCode and discountRate properties
+         
          if (data && data.banners && Array.isArray(data.banners) && data.banners.length > 0) {
             const firstBanner = data.banners[0];
             setActiveBanner(firstBanner);
-            setDiscountRate(firstBanner.discount); // Use the correct property name
-            setPromoCode(firstBanner.coupon); // Use the correct property name
+            setDiscountRate(firstBanner.discount); 
+            setPromoCode(firstBanner.coupon); 
           } else {
             console.log('No active banners found');
           }

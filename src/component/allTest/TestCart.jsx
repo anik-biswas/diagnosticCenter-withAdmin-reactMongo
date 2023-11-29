@@ -16,7 +16,7 @@ const TestCart = ({test}) => {
             
             </div>
             <p className="text-gray-700 text-justify text-base">
-            {description.slice(0, 22)}... <Link to={`/testDetails/${_id}`}><button className="text-sky-600">Read More</button></Link>
+            {description.slice(0, 17)}... <Link to={`/testDetails/${_id}`}><button className="text-sky-600">Read More</button></Link>
             </p>
             </div>
             
