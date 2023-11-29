@@ -1,21 +1,21 @@
 import { Slider, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-const Recomendation  = () => {
-    const [recomendations,setRecomendation] = useState([]);
-    const [currentSlide, setCurrentSlide] = useState(0);
-    useEffect ( () => {
-        fetch('http://localhost:5000/recomendation')
-        .then (res => res.json())
-        .then(data =>setRecomendation(data))
-        
-    },[])
-    const handleSlideChange = (event, newValue) => {
-        setCurrentSlide(newValue);
-      };
-      console.log(recomendations)
-    return (
-      <div className="flex flex-col items-center">
+const Recomendation = () => {
+  const [recomendations, setRecomendation] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+    fetch('https://diagnostic-server-site.vercel.app/recomendation')
+      .then(res => res.json())
+      .then(data => setRecomendation(data))
+
+  }, [])
+  const handleSlideChange = (event, newValue) => {
+    setCurrentSlide(newValue);
+  };
+  console.log(recomendations)
+  return (
+    <div className="flex flex-col items-center">
       <Typography variant="h4" gutterBottom>
         Health Recommendations
       </Typography>
@@ -42,8 +42,8 @@ const Recomendation  = () => {
         ))}
       </div>
     </div>
-    
-    );
+
+  );
 };
 
-export default Recomendation ;
+export default Recomendation;

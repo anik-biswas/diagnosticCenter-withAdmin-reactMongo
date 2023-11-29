@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchUserData = async () => {
       try {
         const email = user?.email;
-        const response = await fetch(`http://localhost:5000/user/email?email=${email}`);
+        const response = await fetch(`https://diagnostic-server-site.vercel.app/user/email?email=${email}`);
         const data = await response.json();
         setUserData(data);
       } catch (error) {

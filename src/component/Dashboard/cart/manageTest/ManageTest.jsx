@@ -16,7 +16,7 @@ const ManageTest = () => {
     const [selectedTest, setSelectedTest] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect ( () => {
-        fetch('http://localhost:5000/dashboard/test')
+        fetch('https://diagnostic-server-site.vercel.app/dashboard/test')
         .then (res => res.json())
         .then(data =>setTests(data))
         
@@ -25,7 +25,7 @@ const ManageTest = () => {
         fetchTests();
       }, []); 
     const fetchTests = () => {
-        fetch('http://localhost:5000/dashboard/test')
+        fetch('https://diagnostic-server-site.vercel.app/dashboard/test')
           .then(res => res.json())
           .then(data => setTests(data))
           .catch(error => console.error('Error fetching banners:', error));
@@ -70,7 +70,7 @@ const ManageTest = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/dashboard/test/${id}`, {
+                fetch(`https://diagnostic-server-site.vercel.app/dashboard/test/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -125,7 +125,7 @@ const ManageTest = () => {
     
             const updateTest = { name, description, testDate, price, slot, testImg: imageUrl };
     
-            const response = await fetch(`http://localhost:5000/dashboard/test/${selectedTest._id}`, {
+            const response = await fetch(`https://diagnostic-server-site.vercel.app/dashboard/test/${selectedTest._id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -149,7 +149,7 @@ const ManageTest = () => {
                 closeModal()
                 // navigate(location?.state?.from || '/dashboard/manageTest');
                 // window.location.reload();
-                const updatedTest= await fetch(`http://localhost:5000/test`);
+                const updatedTest= await fetch(`https://diagnostic-server-site.vercel.app/test`);
                 const updatedTestData = await updatedTest.json();
 
             setTests(updatedTestData);

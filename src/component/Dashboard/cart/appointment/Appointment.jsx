@@ -32,7 +32,7 @@ const Appointment = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/reserve/${id}`, {
+                fetch(`https://diagnostic-server-site.vercel.app/reserve/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -66,7 +66,7 @@ const Appointment = () => {
       
           const status = 'delivered';
       
-          const response = await fetch(`http://localhost:5000/reserve/${selectedReserve._id}`, {
+          const response = await fetch(`https://diagnostic-server-site.vercel.app/reserve/${selectedReserve._id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const Appointment = () => {
           }
       
           // Handle success, e.g., update the UI or show a success message
-          const updatedReserve = await fetch(`http://localhost:5000/reserve`);
+          const updatedReserve = await fetch(`https://diagnostic-server-site.vercel.app/reserve`);
           const updatedReserveData = await updatedReserve.json();
       
           setReserve(updatedReserveData);

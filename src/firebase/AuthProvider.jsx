@@ -41,7 +41,7 @@ const AuthProvider = ({children}) => {
                 //   headers['Authorization'] = `Bearer ${accessToken}`;
                 // }
               
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://diagnostic-server-site.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

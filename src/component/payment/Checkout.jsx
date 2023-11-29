@@ -21,7 +21,7 @@ const Checkout = ({testId,name,testDate, discountPrice }) => {
         // Make an API call to get the test information based on testId
         const fetchTestInformation = async () => {
           try {
-            const response = await fetch(`http://localhost:5000/testDetails/${testId}`);
+            const response = await fetch(`https://diagnostic-server-site.vercel.app/testDetails/${testId}`);
             const data = await response.json();
     
             if (response.ok) {
@@ -49,7 +49,7 @@ const Checkout = ({testId,name,testDate, discountPrice }) => {
     
       const fetchClientSecret = async () => {
         try {
-          const response = await fetch('http://localhost:5000/create-payment-intent', {
+          const response = await fetch('https://diagnostic-server-site.vercel.app/create-payment-intent', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const Checkout = ({testId,name,testDate, discountPrice }) => {
                     status: 'pending'
                 }
 
-                fetch('http://localhost:5000/reserve', {
+                fetch('https://diagnostic-server-site.vercel.app/reserve', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

@@ -26,7 +26,7 @@ const UserAppointment = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/reserve/${id}`, {
+                fetch(`https://diagnostic-server-site.vercel.app/reserve/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

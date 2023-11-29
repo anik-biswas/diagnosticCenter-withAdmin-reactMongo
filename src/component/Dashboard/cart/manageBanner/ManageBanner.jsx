@@ -8,7 +8,7 @@ const ManageBanner = () => {
     const navigate = useNavigate();
     const [banners,setBanners]= useState([]);
     useEffect ( () => {
-        fetch('http://localhost:5000/dashboard/banner')
+        fetch('https://diagnostic-server-site.vercel.app/dashboard/banner')
         .then (res => res.json())
         .then(data =>setBanners(data))
         
@@ -18,7 +18,7 @@ const ManageBanner = () => {
       }, []); 
     
       const fetchBanners = () => {
-        fetch('http://localhost:5000/dashboard/banner')
+        fetch('https://diagnostic-server-site.vercel.app/dashboard/banner')
           .then(res => res.json())
           .then(data => setBanners(data))
           .catch(error => console.error('Error fetching banners:', error));
@@ -37,7 +37,7 @@ const ManageBanner = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/dashboard/banner/${id}`, {
+                fetch(`https://diagnostic-server-site.vercel.app/dashboard/banner/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -60,7 +60,7 @@ const ManageBanner = () => {
     }
     const handleToggleActive = id => {
         
-        fetch(`http://localhost:5000/dashboard/banner/toggle-active/${id}`, {
+        fetch(`https://diagnostic-server-site.vercel.app/dashboard/banner/toggle-active/${id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ const AddBanner = () => {
             const imageUrl = imgbbData.data.url;
             const banner = { name,description,discount,coupon,bannerImg:imageUrl,isActive:false};
             console.log(banner)
-            fetch('http://localhost:5000/dashboard/addBanner', {
+            fetch('https://diagnostic-server-site.vercel.app/dashboard/addBanner', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

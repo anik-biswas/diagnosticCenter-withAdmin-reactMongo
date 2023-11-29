@@ -10,7 +10,7 @@ const AllUser = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
     useEffect ( () => {
-        fetch('http://localhost:5000/user')
+        fetch('https://diagnostic-server-site.vercel.app/user')
         .then (res => res.json())
         .then(data =>setUser(data))
         
@@ -46,7 +46,7 @@ const AllUser = () => {
         .then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/user/${id}`, {
+                fetch(`https://diagnostic-server-site.vercel.app/user/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -69,7 +69,7 @@ const AllUser = () => {
     }
     const handleMakeAdmin = async (selectedUser) => {
         try {
-            const response = await fetch(`http://localhost:5000/user/admin/${selectedUser._id}`, {
+            const response = await fetch(`https://diagnostic-server-site.vercel.app/user/admin/${selectedUser._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const AllUser = () => {
                 throw new Error(`Failed to update user role: ${response.statusText}`);
             }
     
-            const updatedUserResponse = await fetch(`http://localhost:5000/user`);
+            const updatedUserResponse = await fetch(`https://diagnostic-server-site.vercel.app/user`);
             const updatedUserData = await updatedUserResponse.json();
 
             setUser(updatedUserData);
@@ -94,7 +94,7 @@ const AllUser = () => {
     };
     const handleMakeBlocked = async (selectedUser) => {
         try {
-            const response = await fetch(`http://localhost:5000/user/adminBlock/${selectedUser._id}`, {
+            const response = await fetch(`https://diagnostic-server-site.vercel.app/user/adminBlock/${selectedUser._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ const AllUser = () => {
             }
     
             // Handle success, e.g., update the UI or show a success message
-            const updatedUserResponse = await fetch(`http://localhost:5000/user`);
+            const updatedUserResponse = await fetch(`https://diagnostic-server-site.vercel.app/user`);
             const updatedUserData = await updatedUserResponse.json();
 
             setUser(updatedUserData);

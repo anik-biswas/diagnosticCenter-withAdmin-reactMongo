@@ -16,7 +16,7 @@ const Registration = () => {
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/bloodGroup')
+        fetch('https://diagnostic-server-site.vercel.app/bloodGroup')
           .then(res => res.json())
           .then(data => {
             setBloods(data);
@@ -24,7 +24,7 @@ const Registration = () => {
       }, []);
     
       useEffect(() => {
-        fetch('http://localhost:5000/district')
+        fetch('https://diagnostic-server-site.vercel.app/district')
           .then(res => res.json())
           .then(data => {
             setDistricts(data);
@@ -32,7 +32,7 @@ const Registration = () => {
       }, []);
     
       useEffect(() => {
-        fetch('http://localhost:5000/upazila')
+        fetch('https://diagnostic-server-site.vercel.app/upazila')
           .then(res => res.json())
           .then(data => {
             setUpazilas(data);
@@ -85,7 +85,7 @@ const Registration = () => {
                 const createdAt = result.user?.metadata?.creationTime;
                 const user = { name,email,password, blood, district, upazila,image:imageUrl,status: "active",createdAt: createdAt};
                
-                fetch('http://localhost:5000/user', {
+                fetch('https://diagnostic-server-site.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

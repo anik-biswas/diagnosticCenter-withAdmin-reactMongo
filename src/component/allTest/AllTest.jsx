@@ -4,7 +4,7 @@ import TestCart from './TestCart';
 const AllTest = () => {
     const [tests,setTests] = useState([]);
     useEffect ( () => {
-        fetch('http://localhost:5000/test')
+        fetch('https://diagnostic-server-site.vercel.app/test')
         .then (res => res.json())
         .then(data =>setTests(data))
         

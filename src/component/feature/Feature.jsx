@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Feature = () => {
     const [reserves,setReserves] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/reserve')
+        fetch('https://diagnostic-server-site.vercel.app/reserve')
           .then(res => res.json())
           .then(data => {
             // Count occurrences of each test name

@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       {
         path: "testDetails/:id",
         element: <TestDetails></TestDetails>,
-        loader : ({params}) => fetch(`http://localhost:5000/testDetails/${params.id}`),
+        loader : ({params}) => fetch(`https://diagnostic-server-site.vercel.app/testDetails/${params.id}`),
       },
       {
         path: "payment",
@@ -118,22 +118,22 @@ const router = createBrowserRouter([
       {
         path: "appointment",
         element: <Appointment></Appointment>,
-        loader : () => fetch(`http://localhost:5000/reserve`),
+        loader : () => fetch(`https://diagnostic-server-site.vercel.app/reserve`),
       },
       {
         path: "userAppointment",
         element: <UserAppointment></UserAppointment>,
-        loader : () => fetch(`http://localhost:5000/reserve`),
+        loader : () => fetch(`https://diagnostic-server-site.vercel.app/reserve`),
       },
       {
         path: "userTestReport",
         element: <UserTestReport></UserTestReport>,
-        loader : () => fetch(`http://localhost:5000/reserve`),
+        loader : () => fetch(`https://diagnostic-server-site.vercel.app/reserve`),
       },
       {
         path: "profile",
         element: <Profile></Profile>,
-        loader : () => fetch(`http://localhost:5000/user`),
+        loader : () => fetch(`https://diagnostic-server-site.vercel.app/user`),
       },
     ]
   }

@@ -17,7 +17,7 @@ const TestDetails = () => {
 
    useEffect(() => {
      // Fetch active banner data when the component mounts
-     fetch('http://localhost:5000/active-banners')
+     fetch('https://diagnostic-server-site.vercel.app/active-banners')
        .then((res) => res.json())
        .then((data) => {
          // Assuming the response structure contains promoCode and discountRate properties

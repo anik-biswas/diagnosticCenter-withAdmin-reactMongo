@@ -22,7 +22,7 @@ const Login = () => {
                 status: "active",
                 createdAt: createdAt
             }
-            fetch('http://localhost:5000/user', {
+            fetch('https://diagnostic-server-site.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -53,7 +53,7 @@ const Login = () => {
         const email =form.get('email');
         const password =form.get('password');
         console.log(form.get("email"));
-        const userResponse = await fetch(`http://localhost:5000/user/email?email=${email}`);
+        const userResponse = await fetch(`https://diagnostic-server-site.vercel.app/user/email?email=${email}`);
         const userData = await userResponse.json();
         console.log(userData)
         if (userData?.length > 0) {

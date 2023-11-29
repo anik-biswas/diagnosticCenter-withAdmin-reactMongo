@@ -35,7 +35,7 @@ const AddTest = () => {
             const imageUrl = imgbbData.data.url;
             const test = { name,description,testDate,price,slot,testImg:imageUrl};
             console.log(test)
-            fetch('http://localhost:5000/dashboard/addTest', {
+            fetch('https://diagnostic-server-site.vercel.app/dashboard/addTest', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

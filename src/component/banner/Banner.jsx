@@ -6,7 +6,7 @@ const Banner = () => {
 
     useEffect(() => {
       const fetchBanners = () => {
-        fetch('http://localhost:5000/active-banners')
+        fetch('https://diagnostic-server-site.vercel.app/active-banners')
           .then((res) => res.json())
           .then((data) => setBanners(data))
           .catch((error) => console.error('Error fetching banners:', error));
