@@ -42,12 +42,13 @@ import theme from './theme';
 import About from './component/about/About.jsx'
 import Blog from './component/blog/Blog.jsx'
 import PrivateRoute from './component/PrivateRoute.jsx'
+import ErrorPage from './component/errorPage/Errorpage.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
    element: <Root></Root>,
-   // errorElement : <ErrorPage></ErrorPage> ,
+    errorElement : <ErrorPage></ErrorPage> ,
     children : [
       {
         path: "/",
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    errorElement : <ErrorPage></ErrorPage> ,
     children : [
 
       {
