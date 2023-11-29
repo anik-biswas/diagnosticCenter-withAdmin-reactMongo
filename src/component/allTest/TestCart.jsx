@@ -13,6 +13,7 @@ const TestCart = ({test}) => {
             <div className=" pb-2">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Price:{price}$</span>
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Slot :{slot}</span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> {testDate}</span>
             
             </div>
             <p className="text-gray-700 text-justify text-base">

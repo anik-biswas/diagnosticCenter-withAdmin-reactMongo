@@ -31,8 +31,8 @@ const Recomendation = () => {
           <div key={recomendation._id} className={`carousel-item relative min-w-full ${index === currentSlide ? '' : 'hidden'}`}>
             <img src={recomendation.image} alt={`Recomendation ${recomendation._id}`} className="w-full" />
             <div className="absolute flex flex-col items-center justify-center w-full h-full text-white">
-              <h3 className='text-2xl text-red-400'>{recomendation.healthtips}</h3>
-              <p className='text-2xl mt-5 text-red-400'>{recomendation.healthcareprofessionals}</p>
+              <h3 className='text-sm md:text-2xl text-red-400'>{recomendation.healthtips}</h3>
+              <p className='text-sm md:text-2xl mt-5 text-red-400'>{recomendation.healthcareprofessionals}</p>
             </div>
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
               <button onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))} className="btn btn-circle">❮</button>
