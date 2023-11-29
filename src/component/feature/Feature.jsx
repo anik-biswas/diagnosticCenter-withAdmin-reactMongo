@@ -1,5 +1,6 @@
 import { Button, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Feature = () => {
     const [reserves,setReserves] = useState([]);
@@ -36,14 +37,15 @@ const Feature = () => {
       </Grid>
       <Grid item xs={12} textAlign="center">
         {reserves.map(reserve => (
-          <Button
-            key={reserve.testName}
-            variant="contained"
-           
-            style={{ margin: '8px' }}
-          >
-            {reserve.testName}
-          </Button>
+          
+          <Link key={reserve.testName} to={'/allTest'}><Button
+          
+          variant="contained"
+         
+          style={{ margin: '8px' }}
+        >
+          {reserve.testName}
+        </Button></Link>
         ))}
       </Grid>
       </Grid>
