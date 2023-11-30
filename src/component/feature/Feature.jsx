@@ -29,7 +29,7 @@ const Feature = () => {
       }, []);
     console.log(reserves)
     return (
-        <div>
+        <div className='my-5'>
             
     <Grid container justifyContent="center" alignItems="center" >
       <Grid item xs={12} textAlign="center">

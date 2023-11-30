@@ -239,7 +239,7 @@ const Profile = () => {
            <div className="p-8 bg-slate-950 bg-opacity-30 shadow mt-16">
            <div className="relative">
            <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 -top-10 -mt-24 flex items-center justify-center text-indigo-500">
-           <img src={selectedUser.image} className='w-48 h-48 rounded-full' alt="" />
+           <img src={selectedUser.image} className='w-fullmd:w-48 h-full md:h-48 rounded-full' alt="" />
          </div>
          </div>
          <div className="mt-20 text-center border-b pb-12">

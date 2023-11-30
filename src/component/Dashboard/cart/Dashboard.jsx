@@ -143,7 +143,7 @@ const ResponsiveTabs = ({ children }) => {
           </NavLink>
         </li>
       </ResponsiveTabs>
-      <div className="w-64 hidden md:block min-h-screen bg-green-200">
+      <div className="w-64 hidden md:block min-h-screen bg-[#e9edc9]">
         <ul className="menu p-4">
           {userData && userData?.length > 0 && userData[0]?.role === 'admin' ? (
             <>
