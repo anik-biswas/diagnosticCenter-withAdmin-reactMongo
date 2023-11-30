@@ -43,6 +43,7 @@ import About from './component/about/About.jsx'
 import Blog from './component/blog/Blog.jsx'
 import PrivateRoute from './component/PrivateRoute.jsx'
 import ErrorPage from './component/errorPage/Errorpage.jsx'
+import Cart from './component/Dashboard/cart/Cart.jsx'
 
 const router = createBrowserRouter([
   {
@@ -93,7 +94,11 @@ const router = createBrowserRouter([
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     errorElement : <ErrorPage></ErrorPage> ,
     children : [
-
+       
+      {
+        path: "/dashboard",
+        element: <Cart></Cart>,
+      },
       {
         path: "allUser",
         element: <AllUser></AllUser>,

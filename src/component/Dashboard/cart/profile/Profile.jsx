@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../firebase/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Profile = () => {
     const location = useLocation();
@@ -75,7 +76,10 @@ const Profile = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-  
+          Swal.fire(
+            'Profile Updated!',
+            'success'
+        )
           // Refetch the updated user data
           fetch(`https://diagnostic-server-site.vercel.app/user/admin/${selectedUser._id}`)
             .then((res) => res.json())
