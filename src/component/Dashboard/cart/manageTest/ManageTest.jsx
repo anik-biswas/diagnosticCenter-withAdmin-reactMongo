@@ -333,18 +333,7 @@ const ManageTest = () => {
                             ))}
                         </tbody>
                     </table>
-                    <ReactPaginate
-                previousLabel={'previous'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-            />
-                   
+                 
         </div>
         </div>
     );
