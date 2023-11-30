@@ -5,86 +5,98 @@ import { AuthContext } from '../../../../firebase/AuthProvider';
 const Profile = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
-    const emails= user?.email;
-    
+    const { user } = useContext(AuthContext);
+    const email = user?.email;
+  
     const [users, setUsers] = useState(useLoaderData());
-    const userProfile = users.filter((user) => user.email === emails);
-    
-   const selectedUser = userProfile.length > 0 ? userProfile[0] : {};
+    const userProfile = users.filter((user) => user.email === email);
+  
+    const selectedUser = userProfile.length > 0 ? userProfile[0] : {};
   
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [bloods, setBloods] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
+  
     useEffect(() => {
-        fetch('https://diagnostic-server-site.vercel.app/bloodGroup')
-          .then(res => res.json())
-          .then(data => {
-            setBloods(data);
-          });
-      }, []);
-    
-      useEffect(() => {
-        fetch('https://diagnostic-server-site.vercel.app/district')
-          .then(res => res.json())
-          .then(data => {
-            setDistricts(data);
-          });
-      }, []);
-    
-      useEffect(() => {
-        fetch('https://diagnostic-server-site.vercel.app/upazila')
-          .then(res => res.json())
-          .then(data => {
-            setUpazilas(data);
-            
-          });
-      }, []);
-    const openModal = (selectedUser) => {
-        console.log(selectedUser)
-        
-        setIsModalOpen(true);
-      };
-      const closeModal = () => {
-        
-        setIsModalOpen(false);
-        
-      };
-      
-      const handleUpdateProfile = event => {
-        event.preventDefault();
-
-    const form = new FormData(event.currentTarget);
-    const selectBlood = document.getElementById("bloodSelect");
-    const selectDistrict = document.getElementById("districtSelect");
-    const selectUpazila = document.getElementById("upazilaSelect");
-    const name = form.get('name');
-    const email = form.get('email');
-    const blood = selectBlood.value;
-    const district = selectDistrict.value;
-    const upazila = selectUpazila.value;
-
-    const updateUser= { name,email, blood, district, upazila};
-    
-        console.log(updateUser);
-    
-        fetch(`http://localhost:5000/userUpdate/${selectedUser._id}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(updateUser)
+      fetch('https://diagnostic-server-site.vercel.app/bloodGroup')
+        .then((res) => res.json())
+        .then((data) => {
+          setBloods(data);
+        });
+    }, []);
+  
+    useEffect(() => {
+      fetch('https://diagnostic-server-site.vercel.app/district')
+        .then((res) => res.json())
+        .then((data) => {
+          setDistricts(data);
+        });
+    }, []);
+  
+    useEffect(() => {
+      fetch('https://diagnostic-server-site.vercel.app/upazila')
+        .then((res) => res.json())
+        .then((data) => {
+          setUpazilas(data);
+        });
+    }, []);
+  
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
+  
+    const handleUpdateProfile = (event) => {
+      event.preventDefault();
+  
+      const form = new FormData(event.currentTarget);
+      const selectBlood = document.getElementById("bloodSelect");
+      const selectDistrict = document.getElementById("districtSelect");
+      const selectUpazila = document.getElementById("upazilaSelect");
+      const name = form.get('name');
+      const email = form.get('email');
+      const blood = selectBlood.value;
+      const district = selectDistrict.value;
+      const upazila = selectUpazila.value;
+  
+      const updateUser = { name, email, blood, district, upazila };
+  
+      fetch(`https://diagnostic-server-site.vercel.app/userUpdate/${selectedUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(updateUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+  
+          // Refetch the updated user data
+          fetch(`https://diagnostic-server-site.vercel.app/user/admin/${selectedUser._id}`)
+            .then((res) => res.json())
+            .then((updatedUserData) => {
+              // Update state with the new user data
+              setUsers((prevUsers) => {
+                const updatedUsers = prevUsers.map((user) =>
+                  user._id === updatedUserData._id ? updatedUserData : user
+                );
+                return updatedUsers;
+              });
+            });
+  
+          navigate('/dashboard/profile');
+          closeModal();
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            navigate('/dashboard/profile')
-
-        closeModal()
-        
-          })
-    }
+        .catch((error) => {
+          console.error('Error updating profile:', error);
+          // Handle error scenarios, such as displaying an error message to the user
+        });
+    };
 
     return (
         <div>
