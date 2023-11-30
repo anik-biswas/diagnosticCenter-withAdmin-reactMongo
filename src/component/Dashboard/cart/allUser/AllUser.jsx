@@ -55,7 +55,7 @@ const AllUser = () => {
                         if (data.deletedCount > 0) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your Coffee has been deleted.',
+                                'Your user has been deleted.',
                                 'success'
                             )
                             const remainingUsers = users.filter(user => user._id !== id);
@@ -86,6 +86,11 @@ const AllUser = () => {
 
             setUser(updatedUserData);
             closeModal()
+            Swal.fire(
+                
+                'User role updated to admin',
+                'success'
+            )
             console.log('User role updated to admin');
         } catch (error) {
            
@@ -112,6 +117,11 @@ const AllUser = () => {
 
             setUser(updatedUserData);
             closeModal()
+            Swal.fire(
+                
+                'User role updated to blocked',
+                'success'
+            )
             console.log('User role updated Blocked');
         } catch (error) {
            

@@ -9,6 +9,7 @@ const Appointment = () => {
     const [reserves, setReserve] = useState(useLoaderData());
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedReserve, setSelectedReserve] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
     console.log(reserves)
     const openModal = (reserve) => {
         setSelectedReserve(reserve);
@@ -89,6 +90,10 @@ const Appointment = () => {
           console.error(error.message);
         }
       };
+
+      const filteredAppoint = reserves.filter((reserve) =>
+  reserve.email.toLowerCase().includes(searchQuery.toLowerCase())
+);
       
     return (
         <div className='overflow-x-auto justify-center items-center text-center px-5 md:px-10 lg:px-20'>
@@ -112,7 +117,21 @@ const Appointment = () => {
                 
             </div>
             )}
-
+               <form>
+        <div className="my-4 mx-4">
+          <label htmlFor="searchQuery" className="block text-sm font-medium text-gray-700">
+            Search by User Email
+          </label>
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Search by Test Name"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="mt-1 p-2 border rounded-md"
+          />
+        </div>
+      </form>
             <table className="table">
                         
                         <thead>
@@ -129,7 +148,7 @@ const Appointment = () => {
                         </thead>
                         
                         <tbody>
-                            {reserves.map((reserve, index) => (
+                            {filteredAppoint.map((reserve, index) => (
                                 <tr key={reserve._id}>
                                     <td>{index + 1}</td>
                                     <td className="text-xs">{reserve.testName}</td>

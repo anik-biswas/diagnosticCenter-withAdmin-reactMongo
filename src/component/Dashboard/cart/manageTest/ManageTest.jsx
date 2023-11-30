@@ -12,7 +12,7 @@ const ManageTest = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [tests,setTests]= useState([]);
-    
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectedTest, setSelectedTest] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect ( () => {
@@ -162,7 +162,11 @@ const ManageTest = () => {
             // Handle the error (show a message to the user, etc.)
         }
     };
-    
+
+    const filteredTests = tests.filter((test) =>
+  test.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      console.log(filteredTests)
     return (
         <div>
         
@@ -293,6 +297,21 @@ const ManageTest = () => {
         </div>
 
           )}  
+          <form>
+        <div className="my-4 mx-4">
+          <label htmlFor="searchQuery" className="block text-sm font-medium text-gray-700">
+            Search by Test Name
+          </label>
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Search by Test Name"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="mt-1 p-2 border rounded-md"
+          />
+        </div>
+        </form>
             <table className="table">
                         
                         <thead>
@@ -310,7 +329,7 @@ const ManageTest = () => {
                         </thead>
                         
                         <tbody>
-                            {tests.map((test, index) => (
+                            {filteredTests.map((test, index) => (
                                 <tr className="text-center" key={test._id}>
                                     <td>{index + 1}</td>
                                     <td className="text-xs">{test.name}</td>
