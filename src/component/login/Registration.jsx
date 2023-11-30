@@ -225,7 +225,7 @@ const Registration = () => {
             </div>
             <div className="form-control md:w-full lg:w-1/2">
               <label className="label">
-                <span className="label-text">District</span>
+                <span className="label-text">Upazila</span>
               </label>
               <label className="input-group">
               <select
