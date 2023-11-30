@@ -59,9 +59,8 @@ const Login = () => {
         if (userData?.length > 0) {
           const user = userData[0];
     
-          // Check if the user is active
           if (user.status === 'active') {
-            // Proceed with login
+           
             signIn(email, password)
               .then((result) => {
                 console.log(result.user);
@@ -72,18 +71,17 @@ const Login = () => {
               })
               .catch((error) => {
                 setError("Email or password does not match");
-                //setError(error)
-                // toast.error('Login failed. Please check your credentials.');
+                
               });
           } else {
-            // User is not active, show an error
+            
             setError('Your account is not active. Please contact the administrator.');
           }
         } else {
-          // User not found, show an error
+        
           setError('User not found. Please check your credentials.');
         }
-       //setError("")
+       
     };
 
     return (

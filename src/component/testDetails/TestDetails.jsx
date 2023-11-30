@@ -81,19 +81,17 @@ const getDiscountRateFromPromoCode = () => {
             const appliedPromoCode = promoCodeInput.value.trim();
   
             if (appliedPromoCode === promoCode) {
-              // Set the variable to true when the promo code is successfully applied
+            
               isPromoCodeApplied = true;
   
-              // Disable the "Apply Promo Code" button after successful application
               applyPromoCodeBtn.disabled = true;
   
-              // Create and append the "Pay Now" button
               const payButton = document.createElement('button');
             payButton.innerText = 'Pay Now';
             payButton.className = 'swal2-confirm swal2-styled';
   
             payButton.addEventListener('click', () => {
-              // Handle the payment logic or navigate to the payment page
+            
               console.log('Payment logic goes here');
               const discountPrice = calculateDiscountedPrice();
               console.log(testId,discountPrice)
@@ -113,7 +111,6 @@ const getDiscountRateFromPromoCode = () => {
             }
           });
   
-          // Disable the "Apply Promo Code" button if the promo code is successfully applied
           if (isPromoCodeApplied) {
             applyPromoCodeBtn.disabled = true;
           }
@@ -128,14 +125,11 @@ const getDiscountRateFromPromoCode = () => {
     }
   };
   
-  // Calculate discounted price based on the original price and discount rate
   const calculateDiscountedPrice = () => {
     const discountedPrice = price - (price * discountRate) / 100;
     return discountedPrice.toFixed(2); // Keep two decimal places
   };
   
-  // Function to get the discount rate from the promo code (you need to implement this)
-
     return (
         <div>
              <div className="bg-white dark:bg-gray-800 flex relative z-20 items-center overflow-hidden">

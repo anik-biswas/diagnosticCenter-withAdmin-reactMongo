@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../firebase/AuthProvider";
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css'; 
+import Swal from "sweetalert2";
 
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=83a471512dcffa8098e5f1e4afd247df`;
 
@@ -75,9 +74,6 @@ const Registration = () => {
     const imgbbData = await imgbbRes.json();
     const imageUrl = imgbbData.data.url;
   
-    //      if(email,name,image)
-    //      {
-            
             signUp(email,password)
             .then(result=>{
                 console.log(result.user);
@@ -96,6 +92,7 @@ const Registration = () => {
                     .then(data => {
                         if(data.insertedId){
                           //  toast.success('Register & Database saved successful!'); 
+                          Swal.fire('your Are successfully register')
                         }
                         console.log(data)
                     })

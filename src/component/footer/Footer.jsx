@@ -18,7 +18,8 @@ const Footer = () => {
                     </div>
                 </nav> 
                 <aside>
-                    <p>Copyright © 2023 - All right reserved by Diagnostics Industries Ltd</p>
+                    <p>Copyright © 2023 -  All right reserved by Diagnostics Industries Ltd</p>
+                    <p>Developrd By Anik</p>
                 </aside>
                 </footer>
     );

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../firebase/AuthProvider";
+import Swal from "sweetalert2";
 //import { toast } from "react-toastify";
 // import ToggleTheme from "../../ToogleTheame";
 
@@ -9,12 +10,32 @@ const Navbar = () => {
     const{user,logout}= useContext(AuthContext);
     const navigate =useNavigate();
     const location = useLocation();
-    
+    const [userData, setUserData] = useState(null);
+  
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          const email = user?.email;
+          const response = await fetch(`https://diagnostic-server-site.vercel.app/user/email?email=${email}`);
+          const data = await response.json();
+          setUserData(data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+  
+      if (user) {
+        fetchUserData();
+      }
+    }, [user]);
+    //console.log(userData[0].name)
+
     const handleSignOut =() =>{
           logout()
           .then(result=>{
             
             console.log("logout")
+            Swal.fire('logout successful')
           // toast.success('Logout successful!'); 
            // navigate(location?.state ? location.state : '/');
             navigate('/')
@@ -92,18 +113,19 @@ const Navbar = () => {
                 
                      <div>
                      
-                    { user?
+                    {user && userData && userData?.length > 0 ? (
                                  <div className="flex justify-items-center">
                                  
-                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar" title={userData[0]?.name}>
                                  <div className="w-10 rounded-full">
-                                 <img src="https://i.ibb.co/MMBcWdv/download.png" />
+                                 <img src={userData[0]?.image} />
                                  </div>
                                   </label>
                                  <a onClick={handleSignOut} className="btn  w-16 text-xs ">  SignOut</a></div>
-                                 :
+                     )
+                      :(
                                  <Link to={"/login"}><a className="w-20 p-2   rounded-md bg-white">Login</a></Link>  
-                     } 
+                     )} 
                      </div>
 
                 </div>
