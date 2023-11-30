@@ -27,6 +27,9 @@ const promotions = [
 const Promotion = () => {
   return (
     <Grid style={{marginBottom:40}} container spacing={{ xs: 2, sm: 2, md: 3, lg: 4 }} justifyContent="center">
+      <Grid item xs={12} textAlign="center">
+        <h2 style={{ fontSize:'2em', marginTop:'40px' }}>Promotions</h2>
+      </Grid>
       {promotions.map((promo, index) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
           <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
