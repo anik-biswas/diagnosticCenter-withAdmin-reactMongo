@@ -6,7 +6,7 @@ import Recomendation from '../recomendation/Recomendation ';
 
 const Home = () => {
     return (
-        <div className='px-10'>
+        <div className='px-10  '>
             <Banner></Banner>
             <Feature ></Feature>
             <Promotion ></Promotion>
