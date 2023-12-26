@@ -91,24 +91,16 @@ const Registration = () => {
                     .then(res => res.json())
                     .then(data => {
                         if(data.insertedId){
-                          //  toast.success('Register & Database saved successful!'); 
+                         
                           Swal.fire('your Are successfully register')
                         }
                         console.log(data)
                     })
 
                     navigate(location?.state?.from || '/dashboard');
-    //             // navigate('/', { state: { name } });
-    //             toast.success('Register successful!'); 
-    //             //console.log(name,email,image,password);
+   
             })
-    //         .catch(error=>{
-    //             console.error(error);
-    //             toast.error('Registration failed. Please check your credentials.');
-    //         })
-    //     }
-       
-    //  }
+    
       }
     }
     else
